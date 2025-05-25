@@ -8,13 +8,12 @@ export const todosSlice = createSlice({
   initialState,
   reducers: {
     todoCheck(state:{todos:Task[]}, action){
-        return {
-        ...state,
-        todos: state.todos.map(todo => 
-            todo.taskid === action.payload 
-                ? { ...todo, done: !todo.done } 
-                : todo
+       const matchingTodo = state.todos.find(
+          (todo) => todo.taskid == action.payload
         )
+        if (matchingTodo) {
+          matchingTodo.done = !matchingTodo.done;
+        }
     }
     },
     todoAdd(state:{todos:Task[]},action){
